@@ -1,9 +1,10 @@
 import sqlite3
-con = sqlite3.connect("bachelor.db")
+import pandas as pd
+con = sqlite3.connect("bachelor.db") ##학사 DB 생성
 c = con.cursor()
 
 c.execute("CREATE TABLE IF NOT EXISTS ljw_student \
-    (Id integer PRIMARY KEY, Std_name text, Major text)")
+    (Id integer PRIMARY KEY, Std_name text, Major text)") ##table 생성, 기본 키 지정
 
 c.execute("CREATE TABLE IF NOT EXISTS ljw_course \
     (CourseNo integer PRIMARY KEY, Cs_name text, Instructor text)")
@@ -34,9 +35,25 @@ c.executemany("INSERT INTO ljw_student(Id, Std_name, Major) VALUES(?,?,?)", tupl
 c.executemany("INSERT INTO ljw_course(CourseNo, CS_name, Instructor) VALUES(?,?,?)", tuple2)
 c.executemany("INSERT INTO ljw_taken(CNo, Id, CourseNo, Grade) VALUES(?,?,?,?)", tuple3)
 
-c.execute("SELECT * FROM ljw_student")
+c.execute("SELECT Std_name, CS_name,Grade  FROM ljw_student, ljw_course, ljw_taken where ljw_student.Id = ljw_taken.Id and ljw_taken.CourseNo = ljw_course.CourseNo ")
+'''rows = c.fetchall()
+cols = [column[0] for column in c.description]
+data_df = pd.DataFrame.from_records(data=rows, columns=cols)
+print(data_df)'''
 
-print("  Id    Std_name  Major")
+print("Std_name CS_name    Grade")
+print("-----------------------------------------")
+
+while (True): ##반복문과 print를 이용한 table 출력
+    row = c.fetchone()
+    if row == None:
+        break;
+    data1 = row[0]
+    data2 = row[1]
+    data3 = row[2]
+    print("%4s  %7s  %s" % (data1, data2, data3))
+
+print("")
 print("-----------------------------------------")
 while (True):
     row = c.fetchone()
@@ -45,11 +62,11 @@ while (True):
     data1 = row[0]
     data2 = row[1]
     data3 = row[2]
-    print("%8d  %3s  %3s" % (data1, data2, data3))
+    print("%4s %8s  %s " % data1, data2, data3)
 
-print("")
+print("")'''
 
-c.execute("SELECT * FROM ljw_course")
+'''c.execute("SELECT * FROM ljw_course")
 with con:
     with open('ljw_course.dat', 'w') as f:
         for line in con.iterdump():
