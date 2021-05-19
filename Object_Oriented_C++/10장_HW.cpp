@@ -6,31 +6,31 @@ class Shape { // Shape Basic Class
 protected:
 	int x, y;
 public:
-	static double sum; // ÃÑ ¸éÀû sumÀ» staticÀ¸·Î ¼±¾ğ
+	static double sum; // ì´ ë©´ì  sumì„ staticìœ¼ë¡œ ì„ ì–¸
 	static void add(double n) { 
 		sum += n;
 	}
-	Shape(int x, int y) { // »ı¼ºÀÚ
+	Shape(int x, int y) { // ìƒì„±ì
 		this->x = x;
 		this->y = y;
 	}
-	virtual void draw() = 0; // ¼ø¼ö°¡»óÇÔ¼ö ¼±¾ğ
-	virtual double getArea() = 0; // ¸éÀûÀ» ±¸ÇÏ´Â °¡»óÇÔ¼ö ¼±¾ğ
+	virtual void draw() = 0; // ìˆœìˆ˜ê°€ìƒí•¨ìˆ˜ ì„ ì–¸
+	virtual double getArea() = 0; // ë©´ì ì„ êµ¬í•˜ëŠ” ê°€ìƒí•¨ìˆ˜ ì„ ì–¸
 	virtual ~Shape() { }
-	int getx() { return x; } // À§Ä¡ x ¹İÈ¯
-	int gety() { return y; } // À§Ä¡ y ¹İÈ¯
+	int getx() { return x; } // ìœ„ì¹˜ x ë°˜í™˜
+	int gety() { return y; } // ìœ„ì¹˜ y ë°˜í™˜
 };
 double Shape::sum = 0.0;
-// static º¯¼ö¸¦ Àü¿ª °ø°£¿¡ »ı¼º ¹× ÃÊ±âÈ­
+// static ë³€ìˆ˜ë¥¼ ì „ì—­ ê³µê°„ì— ìƒì„± ë° ì´ˆê¸°í™”
 class Rectangle : public Shape { // Rectangle  Derived Class
 	int width, height;
 public:
 	Rectangle(int x, int y, int width, int height) : Shape(x, y) {
-		// »ı¼ºÀÚ
+		// ìƒì„±ì
 		this->width = width;
 		this->height = height;
 	}
-	virtual ~Rectangle() { } // °¡»ó ¼Ò¸êÀÚ
+	virtual ~Rectangle() { } // ê°€ìƒ ì†Œë©¸ì
 	virtual void draw() {
 		cout << "Rectangle: (" << width << ", " << height << ") drawn at : (" << getx() << ", " << gety() << ")" << endl;
 	}
@@ -43,10 +43,10 @@ public:
 class Circle : public Shape { // Circle Derived Class
 	int radius;
 public:
-	Circle(int x, int y, int radius) : Shape(x, y) { // »ı¼ºÀÚ
+	Circle(int x, int y, int radius) : Shape(x, y) { // ìƒì„±ì
 		this->radius = radius;
 	}
-	virtual ~Circle() { } // °¡»ó¼Ò¸êÀÚ
+	virtual ~Circle() { } // ê°€ìƒì†Œë©¸ì
 	virtual void draw() {
 		cout << "Circle: (" << radius << ") drawn at : (" << getx() << ", " << gety() << ")" << endl;
 	}
@@ -57,19 +57,19 @@ public:
 };
 
 
-int main() {  // µµÇüÀ» º¤ÅÍ¿¡ ÀúÀåÇÑ´Ù.
+int main() {  // ë„í˜•ì„ ë²¡í„°ì— ì €ì¥í•œë‹¤.
 	vector<Shape*> vShape;
-	vShape.push_back(new Rectangle(10, 10, 30, 40)); // 10,10 À§Ä¡¿¡ °¡·Î¼¼·Î 30x40
-	vShape.push_back(new Circle(30, 30, 5));  // 30,30 À§Ä¡¿¡ ¹İÁö¸§ 5ÀÎ ¿ø
+	vShape.push_back(new Rectangle(10, 10, 30, 40)); // 10,10 ìœ„ì¹˜ì— ê°€ë¡œì„¸ë¡œ 30x40
+	vShape.push_back(new Circle(30, 30, 5));  // 30,30 ìœ„ì¹˜ì— ë°˜ì§€ë¦„ 5ì¸ ì›
 	vShape.push_back(new Rectangle(20, 30, 10, 10));
-	// ¿©±â¿¡ ¼øÂ÷ Ãâ·Â ¹× ¸éÀû ÃÑÇÕ°è °è»ê ÄÚµå¸¦ Ãß°¡ÇÑ´Ù
-	vector<Shape*>::iterator it; //º¤ÅÍ vShapeÀÇ ¿ø¼Ò¿¡ ´ëÇÑ Æ÷ÀÎÅÍ it ¼±¾ğ
+	// ì—¬ê¸°ì— ìˆœì°¨ ì¶œë ¥ ë° ë©´ì  ì´í•©ê³„ ê³„ì‚° ì½”ë“œë¥¼ ì¶”ê°€í•œë‹¤
+	vector<Shape*>::iterator it; //ë²¡í„° vShapeì˜ ì›ì†Œì— ëŒ€í•œ í¬ì¸í„° it ì„ ì–¸
 	for (auto it = vShape.begin(); it != vShape.end(); it++) {
-		auto s = *it; // itÀÌ °¡¸®Å°´Â ¿ø¼Ò °´Ã¼ ¸®ÅÏ
-		s->draw(); //draw() ÇÔ¼ö ½ÇÇà
+		auto s = *it; // itì´ ê°€ë¦¬í‚¤ëŠ” ì›ì†Œ ê°ì²´ ë¦¬í„´
+		s->draw(); //draw() í•¨ìˆ˜ ì‹¤í–‰
 		auto hap = s->getArea();
-		s->add(hap); // static ¸â¹ö add ³ĞÀÌ ´õÇÏ±â
+		s->add(hap); // static ë©¤ë²„ add ë„“ì´ ë”í•˜ê¸°
 	}
-	cout << "Total area: " << Shape::sum << endl; // static ¸â¹ö sum Á¢±Ù
+	cout << "Total area: " << Shape::sum << endl; // static ë©¤ë²„ sum ì ‘ê·¼
 
 }
