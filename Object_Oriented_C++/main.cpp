@@ -1,31 +1,21 @@
 #include <iostream>
 using namespace std;
-
-class Circle {
-	int radius;
+class Timer {
+	int hour;
+	int minute;
 public:
-	Circle() {
-		radius = 1;
-		cout << radius << " Constructor excuted!" << endl;
-	}
-	Circle(int r) : radius(r){
-		cout << radius << " Constructor excuted!" << endl;
-	}
-	~Circle() {
-		cout << radius << " Destructor" << endl;
-	}
-	int getRadius() { return radius; }
-	void setRadius() {
-		radius++;
-	}
+	Timer(int h = 0, int m = 0) : hour(h), minute(m) {}
+
+	void show();
 };
 
-void increase(Circle* c){ // Circle c
-	c -> setRadius(); //c.setRadius()
+void Timer::show() {
+	cout << hour << ":" << minute << endl;
 }
 
 int main() {
-	Circle waffle(30);
-	increase(&waffle); // 생성자 호출 X, 소멸자는 호출, call by value와 call by adress 차이 인지해!
-	cout << waffle.getRadius() << endl; 
+	Timer t1;
+	Timer t2(10, 15);
+	t1.show();
+	t2.show();
 }
